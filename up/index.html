@@ -3,70 +3,192 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UPI Payment Page</title>
+  <title>UPI Payment Gateway</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
       margin: 0;
-      padding: 0;
-      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
     }
+
+    .header {
+      background: linear-gradient(135deg, #0056d2, #66a3ff);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
     .container {
-      margin-top: 50px;
+      max-width: 600px;
+      margin: 20px auto;
       padding: 20px;
       background: white;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .payment-info {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .payment-info .amount {
+      background: #0056d2;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1.3em;
+      margin: 10px 0;
       display: inline-block;
     }
-    h1 {
-      color: #333;
+
+    .step {
+      margin-bottom: 15px;
     }
-    .upi-id {
-      font-size: 20px;
+
+    .step label {
+      display: block;
       font-weight: bold;
-      margin: 10px 0;
-      color: #555;
-      padding: 10px;
-      border: 1px dashed #888;
-      border-radius: 5px;
+      margin-bottom: 5px;
     }
-    .button {
-      background-color: #007bff;
+
+    .upi-field {
+      display: flex;
+      align-items: center;
+      background: #f1f3f6;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+    }
+
+    .upi-field input {
+      border: none;
+      background: transparent;
+      outline: none;
+      flex-grow: 1;
+      font-size: 1em;
+    }
+
+    .copy-btn {
+      background: #0056d2;
       color: white;
       border: none;
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 16px;
+      padding: 8px 12px;
       border-radius: 5px;
       cursor: pointer;
+      font-size: 0.9em;
     }
-    .button:hover {
-      background-color: #0056b3;
+
+    .copy-btn:hover {
+      background: #003da8;
     }
-    .qr-code {
+
+    .logos {
+      display: flex;
+      justify-content: space-around;
       margin: 20px 0;
-      max-width: 200px;
+    }
+
+    .logos img {
+      width: 50px;
+      height: 50px;
+    }
+
+    .ref-field {
+      margin-bottom: 15px;
+    }
+
+    .ref-field input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 10px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+
+    .submit-btn:hover {
+      background: #218838;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.8em;
+      color: #555;
+    }
+
+    .success-message {
+      color: green;
+      font-size: 0.9em;
+      margin-top: 10px;
+      display: none;
     }
   </style>
 </head>
 <body>
+  <div class="header">
+    UPI Payment Gateway
+  </div>
   <div class="container">
-    <h1>Support Me via UPI</h1>
-    <div class="upi-id" id="upiId">your-upi-id@bank</div>
-    <button class="button" onclick="copyUPI()">Copy UPI ID</button>
-    <p>Scan the QR Code to pay:</p>
-    <img class="qr-code" src="cleaned_qr.png" alt="UPI QR Code">
+    <div class="payment-info">
+      <p>Payment Amount</p>
+      <span class="amount">₹8923</span>
+    </div>
+
+    <div class="step">
+      <label>1. Copy UPI Information</label>
+      <div class="upi-field">
+        <input type="text" id="upi-id" value="test_upi@okhdfcbank" readonly>
+        <button class="copy-btn" onclick="copyUPI()">COPY</button>
+      </div>
+      <p id="copy-message" class="success-message">UPI ID Copied!</p>
+    </div>
+
+    <div class="step">
+      <label>2. Transfer the amount via UPI</label>
+      <div class="logos">
+        <img src="https://play-lh.googleusercontent.com/2tH3ybpe3Tb5y2vamr4s0IJ-ffW83ouOFl4qDeZ8qvKdil5OjMN5_kiQviniaIBz420=s48-rw" alt="Paytm" />
+  <img src="https://play-lh.googleusercontent.com/0dn-CnZkqyLm5PpjdHBrYR9hvnGDNgoLTe8yfrSaPWUx7ZBVGI4C_18-jL06oNCRRCK3=w240-h480-rw" alt="Google Pay" />
+  <img src="https://play-lh.googleusercontent.com/6iyA2zVz5PyyMjK5SIxdUhrb7oh9cYVXJ93q6DZkmx07Er1o90PXYeo6mzL4VC2Gj9s=w240-h480-rw" alt="PhonePe" />
+  <img src="https://play-lh.googleusercontent.com/B5cNBA15IxjCT-8UTXEWgiPcGkJ1C07iHKwm2Hbs8xR3PnJvZ0swTag3abdC_Fj5OfnP=s48-rw" alt="UPI" />
+      </div>
+    </div>
+    <div class="step">
+      <label>3. Enter Ref No. to complete the recharge</label>
+      <div class="ref-field">
+        <input type="text" placeholder="Ref No.">
+      </div>
+    </div>
+
+    <button class="submit-btn">Submit</button>
+  </div>
+
+  <div class="footer">
+    100% Secure Payments Powered by Pays
   </div>
 
   <script>
     function copyUPI() {
-      const upiId = document.getElementById('upiId').textContent;
-      navigator.clipboard.writeText(upiId).then(() => {
-        alert('UPI ID copied to clipboard!');
-      }).catch(err => {
-        alert('Failed to copy: ' + err);
+      const upiId = document.getElementById("upi-id");
+      navigator.clipboard.writeText(upiId.value).then(() => {
+        const message = document.getElementById("copy-message");
+        message.style.display = "block";
+        setTimeout(() => {
+          message.style.display = "none";
+        }, 2000);
       });
     }
   </script>
